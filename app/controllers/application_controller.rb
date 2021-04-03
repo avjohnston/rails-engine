@@ -18,9 +18,16 @@ class ApplicationController < ActionController::API
     object.where("name ILIKE ?", "%#{name}%").order(:name)
   end
 
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+
   def render_unprocessable_entity_response(exception)
     render json: exception.record.errors, status: 404
+  end
+
+  def record_not_found(exception)
+    render json: { error: exception.message }, status: :not_found
   end
 
   helper_method :page_helper, :search_by_name
