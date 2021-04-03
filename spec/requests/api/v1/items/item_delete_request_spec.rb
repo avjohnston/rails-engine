@@ -16,9 +16,7 @@ RSpec.describe "Api::V1::Items", type: :request do
 
   describe 'sad path' do
     it 'cant delete an item given an invalid id' do
-      delete api_v1_item_path(99999999)
-
-      expect(response).to have_http_status(404)
+      expect{ delete api_v1_item_path(99999999) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

@@ -2,11 +2,8 @@ class ApplicationController < ActionController::API
   include ActionController::Helpers
 
   def page_helper(serializer, object)
-    params[:page] = 1 if params[:page].to_i < 1
-    params[:page] = 1 if !params[:page]
-
-    params[:per_page] = 20 if params[:per_page].to_i < 1
-    params[:per_page] = 20 if !params[:per_page]
+    params[:page] = 1 if params[:page].to_i < 1 || !params[:page]
+    params[:per_page] = 20 if params[:per_page].to_i < 1 || !params[:per_page]
 
     offset = ((params[:page].to_i - 1) * params[:per_page].to_i)
     objects = object.offset(offset).limit(params[:per_page])
@@ -18,7 +15,6 @@ class ApplicationController < ActionController::API
     object.where("name ILIKE ?", "%#{name}%").order(:name)
   end
 
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
@@ -26,9 +22,11 @@ class ApplicationController < ActionController::API
     render json: exception.record.errors, status: 404
   end
 
-  def record_not_found(exception)
-    render json: { error: exception.message }, status: :not_found
-  end
+  # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
+  # def record_not_found(exception)
+  #   render json: { error: exception.message }, status: :not_found
+  # end
 
   helper_method :page_helper, :search_by_name
 end
