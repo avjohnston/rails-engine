@@ -1,9 +1,7 @@
 class Api::V1::MerchantsController < ApplicationController
   def index
-    page
-    per_page
     page_helper(MerchantSerializer, Merchant)
-
+    
     render json: @serial
   end
 

@@ -1,7 +1,5 @@
 class Api::V1::ItemsController < ApplicationController
   def index
-    page
-    per_page
     page_helper(ItemSerializer, Item)
 
     render json: @serial
