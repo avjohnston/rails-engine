@@ -1,24 +1,21 @@
 class ApplicationController < ActionController::API
   include ActionController::Helpers
 
-  def page
-    params[:page].to_i < 1 ? @page = 1 : @page = params[:page].to_i
-  end
-
-  def per_page
-    params[:per_page].to_i < 1 ? @per_page = 20 : @per_page = params[:per_page].to_i
-  end
-
   def page_helper(serializer, object)
-    if params[:page] && !params[:per_page]
-      @serial = serializer.new(object.limit(20).offset(20 * (@page - 1)))
-    elsif !params[:page] && params[:per_page]
-      @serial = serializer.new(object.limit(@per_page))
-    elsif params[:page] && params[:per_page]
-      @serial = serializer.new(object.limit(@per_page).offset(@per_page * (@page - 1)))
-    else
-      @serial = serializer.new(object.limit(20))
-    end
+    params[:page] = 1 if params[:page].to_i < 1
+    params[:page] = 1 if !params[:page]
+
+    params[:per_page] = 20 if params[:per_page].to_i < 1
+    params[:per_page] = 20 if !params[:per_page]
+
+    offset = ((params[:page].to_i - 1) * params[:per_page].to_i)
+    objects = object.offset(offset).limit(params[:per_page])
+
+    @serial = serializer.new(objects)
+  end
+
+  def search_by_name(name, object)
+    object.where("name ILIKE ?", "%#{name}%").order(:name)
   end
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
@@ -26,5 +23,5 @@ class ApplicationController < ActionController::API
     render json: exception.record.errors, status: 404
   end
 
-  helper_method :page, :per_page, :page_helper
+  helper_method :page_helper, :search_by_name
 end
