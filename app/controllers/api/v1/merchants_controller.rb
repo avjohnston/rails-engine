@@ -3,7 +3,7 @@ class Api::V1::MerchantsController < ApplicationController
     page
     per_page
     page_helper(MerchantSerializer, Merchant)
-    
+
     render json: @serial
   end
 

@@ -32,10 +32,10 @@ class Api::V1::ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    @merchant = Merchant.find(params[:merchant_id])
-    @item.update(item_params)
-    
-    render json: ItemSerializer(@item)
+    @item.update!(item_params)
+    @serial = ItemSerializer.new(@item)
+
+    render json: @serial, status: 200
   end
 
   def destroy

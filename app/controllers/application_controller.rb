@@ -21,5 +21,10 @@ class ApplicationController < ActionController::API
     end
   end
 
+  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+  def render_unprocessable_entity_response(exception)
+    render json: exception.record.errors, status: 404
+  end
+
   helper_method :page, :per_page, :page_helper
 end
