@@ -11,11 +11,6 @@ class ApplicationController < ActionController::API
     @serial = serializer.new(objects)
   end
 
-  def search_by_name(name, object)
-    object.where("name ILIKE ?", "%#{name}%").order(:name)
-  end
-
-
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
   def render_unprocessable_entity_response(exception)

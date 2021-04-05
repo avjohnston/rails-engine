@@ -1,6 +1,6 @@
 class Api::V1::Merchants::SearchController < ApplicationController
   def show
-    @merchant = search_by_name(params[:name], Merchant)
+    @merchant = Merchant.search_by_name(params[:name])
     if @merchant.empty?
       render json: { data: {} }
     else
