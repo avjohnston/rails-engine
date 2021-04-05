@@ -1,25 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Merchants::Items", type: :request do
-  let!(:merchant) { create(:merchant) }
-	let!(:items) {create_list(:item, 5, merchant_id: merchant.id)}
+  before :each do
+    @merchant = create(:merchant)
+  	@items = create_list(:item, 5, merchant_id: @merchant.id)
+  end
 
-  describe 'get api/v1/merchants/:id/items' do
-    before { get "/api/v1/merchants/#{merchant.id}/items" }
-
+  describe 'happy path' do
     it 'gets all the merchant items' do
-      json = JSON.parse(response.body)
+      get api_v1_merchant_items_path(@merchant)
+
+      json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(200)
 
-      expect(json['data'].class).to eq(Array)
-      expect(json['data'].first['id'].to_i).to eq(items.first.id)
-      expect(json['data'].last['id'].to_i).to eq(items.last.id)
+      expect(json[:data].class).to eq(Array)
+      expect(json[:data].first[:id].to_i).to eq(@items.first.id)
+      expect(json[:data].last[:id].to_i).to eq(@items.last.id)
     end
   end
 
-  describe 'get /api/v1/merchant/:id/items sad path' do
+  describe 'sad path' do
     it 'bad id returns a 404' do
-      expect{ get "/api/v1/merchants/21/items" }.to raise_error(ActiveRecord::RecordNotFound)
+      expect{ get api_v1_merchant_items_path(55555) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

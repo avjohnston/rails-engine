@@ -42,6 +42,7 @@ group :development, :test do
   gem 'fast_jsonapi'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'hirb'
 end
 
 group :development do
