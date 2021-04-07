@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Api::V1::Items::Merchant", type: :request do
   before :each do
     @merchant = create(:merchant)
-  	@item = create(:item, merchant_id: @merchant.id)
+  	@item = create(:item, merchant_id: @merchant.id, unit_price: 750)
   end
 
   describe 'happy path' do

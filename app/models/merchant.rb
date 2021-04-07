@@ -16,6 +16,7 @@ class Merchant < ApplicationRecord
 
   def revenue
     transactions.where('transactions.result = ?', 'success')
+                .where('invoices.status = ?', 'shipped')
                 .pluck('sum(invoice_items.unit_price * invoice_items.quantity)')
                 .first
                 .round(2)
@@ -34,5 +35,9 @@ class Merchant < ApplicationRecord
     transactions.where('transactions.result = ?', 'success')
                 .pluck('sum(invoice_items.quantity)')
                 .first
+  end
+
+  def self.search_by_name(name)
+    where("name ILIKE ?", "%#{name}%").order(:name)
   end
 end

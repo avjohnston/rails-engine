@@ -9,4 +9,15 @@ class Api::V1::Items::SearchController < ApplicationController
       render json: @serial
     end
   end
+
+  def show
+    if item_search_helper
+      item_object_search_helper
+      @serial = ItemSerializer.new(@item)
+
+      render json: @serial
+    else
+      render json: { data: {}, error: 'errors' }, status: 400
+    end
+  end
 end

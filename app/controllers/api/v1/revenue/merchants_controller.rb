@@ -1,6 +1,6 @@
 class Api::V1::Revenue::MerchantsController < ApplicationController
   def index
-    if params[:quantity]
+    if params[:quantity].present? && params[:quantity].to_i > 0
       @merchants = Merchant.top_merchants_by_revenue(params[:quantity])
       @serial = MerchantNameRevenueSerializer.new(@merchants)
 
