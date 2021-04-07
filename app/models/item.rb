@@ -27,7 +27,6 @@ class Item < ApplicationRecord
   end
 
   def self.min_price(price)
-    return {} if self.where('unit_price >= ?', price).order(:name).empty?
     where('unit_price >= ?', price).order(:name)
   end
 
@@ -38,16 +37,4 @@ class Item < ApplicationRecord
   def self.price_range(min, max)
     where('unit_price >= ? and unit_price <= ?', min, max).order(:name)
   end
-
-  # def self.helper
-  #   if item_search_helper
-  #     @item = Item.search_by_name(params[:name]).first
-  #   elsif item_search_helper
-  #     @item = Item.price_range(params[:min_price], params[:max_price]).first
-  #   elsif item_search_helper
-  #     @item = Item.min_price(params[:min_price]).first
-  #   elsif item_search_helper
-  #     @item = Item.max_price(params[:max_price]).first
-  #   end
-  # end
 end

@@ -11,9 +11,10 @@ class Api::V1::Items::SearchController < ApplicationController
   end
 
   def show
-    if item_search_helper
-      item_object_search_helper
-      @serial = ItemSerializer.new(@item)
+    item_search_helper
+    if @count
+      item_define_helper
+      serializer_edge_case
 
       render json: @serial
     else
