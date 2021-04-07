@@ -55,6 +55,17 @@ RSpec.describe Merchant, type: :model do
         expect(actual_3).to eq(expected_3)
       end
     end
+
+    describe '#search_by_name' do
+      it 'should return all merchants that match the given name' do
+        results = [@merchant_1, @merchant_2, @merchant_3, @merchant_4, @merchant_5]
+        expect(Merchant.search_by_name('erch')).to eq(results)
+
+        expect(Merchant.search_by_name('3')).to eq([@merchant_3])
+        expect(Merchant.search_by_name('omi')).to eq([@merchant_5])
+        expect(Merchant.search_by_name('cwrvrgwer')).to eq([])
+      end
+    end
   end
 
   describe '#instance methods' do
