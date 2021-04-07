@@ -16,21 +16,29 @@ class ApplicationController < ActionController::API
   end
 
   def item_search_helper
-    params[:max_price] && params[:max_price].to_i > 0 && !params[:name] ? true : false
-    params[:name] && !params[:min_price] && !params[:max_price] ? true : false
-    params[:min_price] && params[:max_price] && !params[:name] ? true : false
-    params[:min_price] && params[:min_price].to_i > 0 && !params[:name] ? true : false
+    @count = 1 if params[:name] && !params[:min_price] && !params[:max_price]
+    @count = 2 if params[:min_price].to_i > 0 && params[:max_price].to_i > 0 && !params[:name]
+    @count = 3 if params[:min_price] && params[:min_price].to_i > 0 && !params[:name] && !params[:max_price]
+    @count = 4 if params[:max_price] && params[:max_price].to_i > 0 && !params[:name] && !params[:min_price]
   end
 
-  def item_object_search_helper
-    if item_search_helper
+  def item_define_helper
+    if @count == 1
       @item = Item.search_by_name(params[:name]).first
-    elsif item_search_helper
+    elsif @count == 2
       @item = Item.price_range(params[:min_price], params[:max_price]).first
-    elsif item_search_helper
+    elsif @count == 3
       @item = Item.min_price(params[:min_price]).first
-    elsif item_search_helper
+    elsif @count == 4
       @item = Item.max_price(params[:max_price]).first
+    end
+  end
+
+  def serializer_edge_case
+    if @item.nil?
+      @serial = { data: {} }
+    else
+      @serial = ItemSerializer.new(@item)
     end
   end
 end

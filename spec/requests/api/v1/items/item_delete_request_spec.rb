@@ -5,7 +5,7 @@ RSpec.describe "Api::V1::Items", type: :request do
     @merchant = create(:merchant)
     @customer = create(:customer)
     @item = create(:item, merchant_id: @merchant.id)
-    @invoice = create(:invoice, merchant_id: @merchant.id, customer_id: @customer.id)
+    @invoice = create(:invoice, merchant_id: @merchant.id, customer_id: @customer.id, status: 1)
     @invoice_item = create(:invoice_item, item_id: @item.id, invoice_id: @invoice.id)
     @transaction = create(:transaction, invoice_id: @invoice.id)
   end

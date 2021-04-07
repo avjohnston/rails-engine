@@ -14,7 +14,7 @@ RSpec.describe Invoice, type: :model do
         merchant_1_with_history
         merchant_4_with_history
 
-        @invoice_9 = Invoice.create!(customer_id: @customer_1.id, status: 'completed', merchant_id: @merchant_1.id)
+        @invoice_9 = Invoice.create!(customer_id: @customer_1.id, status: 1, merchant_id: @merchant_1.id)
         InvoiceItem.create!(invoice_id: @invoice_9.id, item_id: @item_1.id, quantity: 4, unit_price: 40)
 
         Invoice.invoice_delete(@item_1.id)

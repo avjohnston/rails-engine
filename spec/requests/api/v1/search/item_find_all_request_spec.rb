@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Items::Search", type: :request do
+RSpec.describe "Api::V1::Items::Search Index", type: :request do
   before :each do
     @merchant_1 = create(:merchant, name: 'Andrew J')
     @merchant_2 = create(:merchant, name: 'Jandrew A')

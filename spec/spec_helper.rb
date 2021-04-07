@@ -106,7 +106,7 @@ def setup_five_merchants_revenue
     @merchant_1 = create(:merchant, name: 'Merchant 1')
     @customer_1 = create(:customer)
     @item_1 = @merchant_1.items.create!(name: 'Item 1', description: 'foo bar baz quux', unit_price: 10)
-    @invoice_1 = Invoice.create!(customer_id: @customer_1.id, status: 'completed', merchant_id: @merchant_1.id)
+    @invoice_1 = Invoice.create!(customer_id: @customer_1.id, status: 1, merchant_id: @merchant_1.id)
     InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, quantity: 1, unit_price: 10)
     Transaction.create!(invoice_id: @invoice_1.id, result: 'success')
   end
@@ -115,7 +115,7 @@ def setup_five_merchants_revenue
     @merchant_2 = create(:merchant, name: 'Merchant 2')
     @customer_2 = create(:customer)
     @item_2 = @merchant_2.items.create!(name: 'Item 2', description: 'foo bar baz quux', unit_price: 10)
-    @invoice_2 = Invoice.create!(customer_id: @customer_2.id, status: 'completed', merchant_id: @merchant_2.id)
+    @invoice_2 = Invoice.create!(customer_id: @customer_2.id, status: 1, merchant_id: @merchant_2.id)
     InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_2.id, quantity: 2, unit_price: 20)
     Transaction.create!(invoice_id: @invoice_2.id, result: 'success')
   end
@@ -124,7 +124,7 @@ def setup_five_merchants_revenue
     @merchant_3 = create(:merchant, name: 'Merchant 3')
     @customer_3 = create(:customer)
     @item_3 = @merchant_3.items.create!(name: 'Item 3', description: 'foo bar baz quux', unit_price: 20)
-    @invoice_3 = Invoice.create!(customer_id: @customer_3.id, status: 'completed', merchant_id: @merchant_3.id)
+    @invoice_3 = Invoice.create!(customer_id: @customer_3.id, status: 1, merchant_id: @merchant_3.id)
     InvoiceItem.create!(invoice_id: @invoice_3.id, item_id: @item_3.id, quantity: 3, unit_price: 30)
     Transaction.create!(invoice_id: @invoice_3.id, result: 'success')
   end
@@ -134,8 +134,8 @@ def setup_five_merchants_revenue
     @customer_4 = create(:customer)
     @item_4 = @merchant_4.items.create!(name: 'Item 4', description: 'foo bar baz quux', unit_price: 10)
     @item_5 = @merchant_4.items.create!(name: 'Item 5', description: 'foo bar baz quux', unit_price: 20)
-    @invoice_4 = Invoice.create!(customer_id: @customer_4.id, status: 'completed', merchant_id: @merchant_4.id)
-    @invoice_5 = Invoice.create!(customer_id: @customer_4.id, status: 'completed', merchant_id: @merchant_4.id)
+    @invoice_4 = Invoice.create!(customer_id: @customer_4.id, status: 1, merchant_id: @merchant_4.id)
+    @invoice_5 = Invoice.create!(customer_id: @customer_4.id, status: 1, merchant_id: @merchant_4.id)
     InvoiceItem.create!(invoice_id: @invoice_4.id, item_id: @item_4.id, quantity: 4, unit_price: 40)
     InvoiceItem.create!(invoice_id: @invoice_5.id, item_id: @item_5.id, quantity: 4, unit_price: 40)
     # Note first transaction is failed
@@ -148,8 +148,8 @@ def setup_five_merchants_revenue
     @customer_5 = create(:customer)
     @item_6 = @merchant_5.items.create!(name: 'Item 6', description: 'foo bar baz quux', unit_price: 10)
     @item_7 = @merchant_5.items.create!(name: 'Item 7 Dude', description: 'foo bar baz quux', unit_price: 20)
-    @invoice_6 = Invoice.create!(customer_id: @customer_5.id, status: 'completed', merchant_id: @merchant_5.id)
-    @invoice_7 = Invoice.create!(customer_id: @customer_5.id, status: 'completed', merchant_id: @merchant_5.id)
+    @invoice_6 = Invoice.create!(customer_id: @customer_5.id, status: 1, merchant_id: @merchant_5.id)
+    @invoice_7 = Invoice.create!(customer_id: @customer_5.id, status: 1, merchant_id: @merchant_5.id)
     InvoiceItem.create!(invoice_id: @invoice_6.id, item_id: @item_6.id, quantity: 5, unit_price: 50)
     InvoiceItem.create!(invoice_id: @invoice_7.id, item_id: @item_6.id, quantity: 5, unit_price: 50)
     # Note second transaction is failed
@@ -161,7 +161,7 @@ def setup_five_merchants_revenue
     @merchant_6 = create(:merchant, name: 'Merchant 6')
     @customer_6 = create(:customer)
     @item_8 = @merchant_6.items.create!(name: 'Item 8', description: 'foo bar baz quux', unit_price: 10000)
-    @invoice_8 = Invoice.create!(customer_id: @customer_6.id, status: 'completed', merchant_id: @merchant_6.id)
+    @invoice_8 = Invoice.create!(customer_id: @customer_6.id, status: 1, merchant_id: @merchant_6.id)
     InvoiceItem.create!(invoice_id: @invoice_8.id, item_id: @item_8.id, quantity: 100, unit_price: 10000)
     Transaction.create!(invoice_id: @invoice_8.id, result: 'success')
   end
