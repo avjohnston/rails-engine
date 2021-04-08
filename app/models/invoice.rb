@@ -4,7 +4,7 @@ class Invoice < ApplicationRecord
   has_many :transactions, dependent: :destroy
   belongs_to :customer
 
-  enum status: [:packed, :shipped, :returned]
+  # enum status: [:packed, :shipped, :returned]
 
   def self.invoice_delete(item_id)
     invoices = Item.find(item_id).invoices
