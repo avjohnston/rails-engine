@@ -4,9 +4,9 @@ RSpec.describe "Api::V1::Items::Search Index", type: :request do
   before :each do
     @merchant_1 = create(:merchant, name: 'Andrew J')
     @merchant_2 = create(:merchant, name: 'Jandrew A')
-    @item_1 = create(:item, name: 'Item Bulo')
-    @item_2 = create(:item, name: 'Item Should')
-    @item_3 = create(:item, name: 'Item Hello')
+    @item_1 = create(:item, name: 'Item Bulo', description: 'Item')
+    @item_2 = create(:item, name: 'Item Should', description: 'Item')
+    @item_3 = create(:item, name: 'Item Hello', description: 'Item')
   end
 
   describe 'when i search for items by name' do
@@ -30,6 +30,24 @@ RSpec.describe "Api::V1::Items::Search Index", type: :request do
       expect(response).to have_http_status(200)
 
       expect(json[:data].size).to eq(0)
+      expect(json[:data]).to eq([])
+    end
+  end
+
+  describe 'sad path' do
+    it 'returns status 400 when search param is not present' do
+      get api_v1_items_find_all_path
+
+      json = JSON.parse(response.body, symbolize_names: true)
+      expect(response).to have_http_status(400)
+    end
+
+    it 'returns empty data when search param is present but empty' do
+      get api_v1_items_find_all_path, params: {name: 'vwra'}
+
+      json = JSON.parse(response.body, symbolize_names: true)
+      expect(response).to have_http_status(200)
+
       expect(json[:data]).to eq([])
     end
   end

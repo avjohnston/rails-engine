@@ -13,13 +13,23 @@ class Item < ApplicationRecord
     .limit(quantity)
   end
 
-  def self.revenue(item_id)
-    return 0 if successful_transactions(item_id).empty?
-    successful_transactions(item_id).first.total_revenue.round(2)
+  def successful_transactions
+    invoices.joins(:transactions)
+            .where('transactions.result = ?', 'success')
+            .pluck("sum(invoice_items.quantity * invoice_items.unit_price)")
   end
 
-  def self.successful_transactions(item_id)
-    joins(:transactions).select("items.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue").where('transactions.result = ?', 'success').where('invoice_items.item_id = ?', item_id).group(:id)
+  def revenue
+    return 0 if successful_transactions.first.nil?
+    successful_transactions.first.round(2)
+  end
+
+  def only_item_on_invoice
+    invoices.joins(:items)
+    .select('invoices.*, count(invoice_items.item_id)')
+    .group(:id)
+    .having('count(invoice_items.item_id) = 1')
+    .pluck(:id)
   end
 
   def self.search_by_name(name)

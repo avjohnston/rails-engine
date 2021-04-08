@@ -3,6 +3,6 @@ class ItemRevenueSerializer
   attributes :name, :description, :unit_price, :merchant_id
 
   attribute :revenue do |item|
-    Item.revenue(item.id)
+    item.revenue
   end
 end

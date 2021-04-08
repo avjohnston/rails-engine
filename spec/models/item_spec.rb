@@ -32,26 +32,6 @@ RSpec.describe Item, type: :model do
       end
     end
 
-    describe '#revenue' do
-      it 'should return the total revenue for a given item' do
-        expect(Item.revenue(@item_1.id)).to eq(10)
-        expect(Item.revenue(@item_2.id)).to eq(40)
-        expect(Item.revenue(@item_3.id)).to eq(90)
-        expect(Item.revenue(@item_4.id)).to eq(0)
-        expect(Item.revenue(@item_5.id)).to eq(160)
-        expect(Item.revenue(@item_6.id)).to eq(250)
-        expect(Item.revenue(@item_7.id)).to eq(0)
-      end
-    end
-
-    describe '#successful_transactions' do
-      it 'should return an active record association of the given item with revenue' do
-        expect(Item.successful_transactions(@item_1.id)).to eq([@item_1])
-        expect(Item.successful_transactions(@item_1.id).first.total_revenue).to eq(10)
-        expect(Item.successful_transactions(@item_4.id)).to eq([])
-      end
-    end
-
     describe '#search_by_name' do
       it 'should return items that match a partial search by name or description' do
         expect(Item.search_by_name('4')).to eq([@item_4])
@@ -98,6 +78,49 @@ RSpec.describe Item, type: :model do
         expect(Item.price_range(100, 200)).to eq([])
         expect(Item.price_range(-100, -50)).to eq([])
         expect(Item.price_range(100, -100)).to eq([])
+      end
+    end
+  end
+
+  describe '#instance methods' do
+    describe '#only_item_on_invoice' do
+      it 'finds invoices with only itself on the invoice' do
+        merchant_1_with_history
+        merchant_4_with_history
+
+        @invoice_9 = Invoice.create!(customer_id: @customer_1.id, status: 1, merchant_id: @merchant_1.id)
+        InvoiceItem.create!(invoice_id: @invoice_9.id, item_id: @item_1.id, quantity: 4, unit_price: 40)
+
+        @invoices = @item_1.only_item_on_invoice
+        Invoice.destroy(@invoices)
+
+        expect(@merchant_1.invoices).to eq([])
+
+        InvoiceItem.create!(invoice_id: @invoice_4.id, item_id: @item_1.id, quantity: 4, unit_price: 40)
+
+        @invoices2 = @item_1.only_item_on_invoice
+        Invoice.destroy(@invoices2)
+
+        expect(@merchant_4.invoices).to eq([@invoice_4, @invoice_5])
+      end
+    end
+
+    describe '#revenue' do
+      it 'should return the total revenue for a given item' do
+        expect(@item_1.revenue).to eq(10)
+        expect(@item_2.revenue).to eq(40)
+        expect(@item_3.revenue).to eq(90)
+        expect(@item_4.revenue).to eq(0)
+        expect(@item_5.revenue).to eq(160)
+        expect(@item_6.revenue).to eq(250)
+        expect(@item_7.revenue).to eq(0)
+      end
+    end
+
+    describe '#successful_transactions' do
+      it 'should return an active record association of the given item with revenue' do
+        expect(@item_1.successful_transactions).to eq([10])
+        expect(@item_4.successful_transactions).to eq([nil])
       end
     end
   end
