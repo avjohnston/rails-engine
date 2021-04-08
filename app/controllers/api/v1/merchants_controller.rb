@@ -1,7 +1,8 @@
 class Api::V1::MerchantsController < ApplicationController
   def index
-    page_helper(MerchantSerializer, Merchant)
-    
+    @objects = Merchant.page_helper(params[:page].to_i, params[:per_page].to_i)
+
+    @serial = MerchantSerializer.new(@objects)
     render json: @serial
   end
 

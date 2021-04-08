@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::Merchants", type: :request do
   before :each do
-    @merchants = create_list(:merchant, 100)
+    @merchants = create_list(:merchant, 100, created_at: Time.now)
+    @merchants = Merchant.order(:id)
   end
 
   describe 'happy path' do

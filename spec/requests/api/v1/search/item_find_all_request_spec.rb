@@ -33,4 +33,22 @@ RSpec.describe "Api::V1::Items::Search Index", type: :request do
       expect(json[:data]).to eq([])
     end
   end
+
+  describe 'sad path' do
+    it 'returns status 400 when search param is not present' do
+      get api_v1_items_find_all_path
+
+      json = JSON.parse(response.body, symbolize_names: true)
+      expect(response).to have_http_status(400)
+    end
+
+    it 'returns empty data when search param is present but empty' do
+      get api_v1_items_find_all_path, params: {name: 'vwra'}
+
+      json = JSON.parse(response.body, symbolize_names: true)
+      expect(response).to have_http_status(200)
+
+      expect(json[:data]).to eq([])
+    end
+  end
 end

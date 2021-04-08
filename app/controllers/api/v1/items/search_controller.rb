@@ -1,10 +1,10 @@
 class Api::V1::Items::SearchController < ApplicationController
   def index
-    @items = Item.search_by_name(params[:name])
-    if @items.empty?
-      render json: { data: [] }
+    if !params[:name] || params[:name].empty?
+      render json: { data: [], error: 'errors' }, status: 400
     else
-      @serial = ItemSerializer.new(@items)
+      @items = Item.search_by_name(params[:name])
+      item_search_serial
 
       render json: @serial
     end
@@ -12,8 +12,7 @@ class Api::V1::Items::SearchController < ApplicationController
 
   def show
     item_search_helper
-    if @count
-      item_define_helper
+    if @item
       serializer_edge_case
 
       render json: @serial

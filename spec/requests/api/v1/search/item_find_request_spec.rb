@@ -150,7 +150,7 @@ RSpec.describe "Api::V1::Items::Search Show", type: :request do
       expect(response).to have_http_status(400)
       expect(json[:data]).to eq({})
 
-      get api_v1_items_find_path, params: { min_price: -5, max_price: -25 }
+      get api_v1_items_find_path, params: { min_price: -35, max_price: -25 }
 
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(400)
@@ -162,6 +162,14 @@ RSpec.describe "Api::V1::Items::Search Show", type: :request do
 
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(200)
+      expect(json[:data]).to eq({})
+    end
+
+    it 'when min price is greater than max price' do
+      get api_v1_items_find_path, params: { min_price: 50, max_price: 25 }
+
+      json = JSON.parse(response.body, symbolize_names: true)
+      expect(response).to have_http_status(400)
       expect(json[:data]).to eq({})
     end
   end
