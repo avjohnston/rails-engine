@@ -4,9 +4,9 @@ RSpec.describe "Api::V1::Items::Search Index", type: :request do
   before :each do
     @merchant_1 = create(:merchant, name: 'Andrew J')
     @merchant_2 = create(:merchant, name: 'Jandrew A')
-    @item_1 = create(:item, name: 'Item Bulo')
-    @item_2 = create(:item, name: 'Item Should')
-    @item_3 = create(:item, name: 'Item Hello')
+    @item_1 = create(:item, name: 'Item Bulo', description: 'Item')
+    @item_2 = create(:item, name: 'Item Should', description: 'Item')
+    @item_3 = create(:item, name: 'Item Hello', description: 'Item')
   end
 
   describe 'when i search for items by name' do
