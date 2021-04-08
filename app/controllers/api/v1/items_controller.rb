@@ -40,12 +40,13 @@ class Api::V1::ItemsController < ApplicationController
   def destroy
     @item = Item.find(params[:id])
     @invoices = @item.only_item_on_invoice
-    
+
     Invoice.destroy(@invoices)
     @item.destroy
   end
 
   private
+
   def item_params
     params.permit(:name, :description, :unit_price, :merchant_id)
   end

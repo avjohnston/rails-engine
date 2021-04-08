@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Revenue::Merchants Index", type: :request do
+RSpec.describe 'Api::V1::Revenue::Merchants Index', type: :request do
   before :each do
     setup_five_merchants_revenue
   end
@@ -17,10 +17,10 @@ RSpec.describe "Api::V1::Revenue::Merchants Index", type: :request do
         expect(json[:data].size).to eq(5)
         expect(json[:data][0][:type]).to eq('merchant_name_revenue')
         expect(json[:data][0][:attributes][:name]).to eq('Merchant 5 The Homie')
-        expect(json[:data][0][:attributes][:revenue]).to eq('250.0')
+        expect(json[:data][0][:attributes][:revenue]).to eq(250.0)
         expect(json[:data][4][:type]).to eq('merchant_name_revenue')
         expect(json[:data][4][:attributes][:name]).to eq('Merchant 1')
-        expect(json[:data][4][:attributes][:revenue]).to eq('10.0')
+        expect(json[:data][4][:attributes][:revenue]).to eq(10.0)
       end
     end
 

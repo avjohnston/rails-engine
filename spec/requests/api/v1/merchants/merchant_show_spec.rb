@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Merchants Show", type: :request do
+RSpec.describe 'Api::V1::Merchants Show', type: :request do
   before :each do
     @merchant = create(:merchant)
   end
@@ -19,7 +19,7 @@ RSpec.describe "Api::V1::Merchants Show", type: :request do
 
   describe 'sad path' do
     it 'bad id returns a 404' do
-      expect{ get api_v1_merchant_path(55555) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { get api_v1_merchant_path(55_555) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

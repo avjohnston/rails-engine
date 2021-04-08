@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Items::Search Index", type: :request do
+RSpec.describe 'Api::V1::Items::Search Index', type: :request do
   before :each do
     @merchant_1 = create(:merchant, name: 'Andrew J')
     @merchant_2 = create(:merchant, name: 'Jandrew A')
@@ -11,7 +11,7 @@ RSpec.describe "Api::V1::Items::Search Index", type: :request do
 
   describe 'when i search for items by name' do
     it 'returns all items that match name ordered alphabetically - case insensitive' do
-      get api_v1_items_find_all_path, params: {name: 'ul'}
+      get api_v1_items_find_all_path, params: { name: 'ul' }
 
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(200)
@@ -24,7 +24,7 @@ RSpec.describe "Api::V1::Items::Search Index", type: :request do
     end
 
     it 'returns empty array if no item names match search' do
-      get api_v1_items_find_all_path, params: {name: 'vavzxz'}
+      get api_v1_items_find_all_path, params: { name: 'vavzxz' }
 
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(200)
@@ -43,7 +43,7 @@ RSpec.describe "Api::V1::Items::Search Index", type: :request do
     end
 
     it 'returns empty data when search param is present but empty' do
-      get api_v1_items_find_all_path, params: {name: 'vwra'}
+      get api_v1_items_find_all_path, params: { name: 'vwra' }
 
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(200)

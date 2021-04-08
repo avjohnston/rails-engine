@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Items::Search Show", type: :request do
+RSpec.describe 'Api::V1::Items::Search Show', type: :request do
   before :each do
     setup_five_merchants_revenue
   end
@@ -15,18 +15,18 @@ RSpec.describe "Api::V1::Items::Search Show", type: :request do
       expect(json[:data].class).to eq(Hash)
       expect(json[:data][:type]).to eq('item')
       expect(json[:data][:attributes].class).to eq(Hash)
-      expect(json[:data][:attributes][:name]).to eq("#{@item_1.name}")
-      expect(json[:data][:attributes][:description]).to eq("#{@item_1.description}")
-      expect(json[:data][:attributes][:unit_price]).to eq("#{@item_1.unit_price.to_f}")
+      expect(json[:data][:attributes][:name]).to eq(@item_1.name.to_s)
+      expect(json[:data][:attributes][:description]).to eq(@item_1.description.to_s)
+      expect(json[:data][:attributes][:unit_price]).to eq(@item_1.unit_price.to_f)
       expect(json[:data][:attributes][:merchant_id]).to eq(@item_1.merchant_id)
 
       get api_v1_items_find_path, params: { name: '4' }
 
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(200)
-      expect(json[:data][:attributes][:name]).to eq("#{@item_4.name}")
-      expect(json[:data][:attributes][:description]).to eq("#{@item_4.description}")
-      expect(json[:data][:attributes][:unit_price]).to eq("#{@item_4.unit_price.to_f}")
+      expect(json[:data][:attributes][:name]).to eq(@item_4.name.to_s)
+      expect(json[:data][:attributes][:description]).to eq(@item_4.description.to_s)
+      expect(json[:data][:attributes][:unit_price]).to eq(@item_4.unit_price.to_f)
       expect(json[:data][:attributes][:merchant_id]).to eq(@item_4.merchant_id)
     end
 
@@ -39,18 +39,18 @@ RSpec.describe "Api::V1::Items::Search Show", type: :request do
       expect(json[:data].class).to eq(Hash)
       expect(json[:data][:type]).to eq('item')
       expect(json[:data][:attributes].class).to eq(Hash)
-      expect(json[:data][:attributes][:name]).to eq("#{@item_1.name}")
-      expect(json[:data][:attributes][:description]).to eq("#{@item_1.description}")
-      expect(json[:data][:attributes][:unit_price]).to eq("#{@item_1.unit_price.to_f}")
+      expect(json[:data][:attributes][:name]).to eq(@item_1.name.to_s)
+      expect(json[:data][:attributes][:description]).to eq(@item_1.description.to_s)
+      expect(json[:data][:attributes][:unit_price]).to eq(@item_1.unit_price.to_f)
       expect(json[:data][:attributes][:merchant_id]).to eq(@item_1.merchant_id)
 
       get api_v1_items_find_path, params: { min_price: 20 }
 
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(200)
-      expect(json[:data][:attributes][:name]).to eq("#{@item_3.name}")
-      expect(json[:data][:attributes][:description]).to eq("#{@item_3.description}")
-      expect(json[:data][:attributes][:unit_price]).to eq("#{@item_3.unit_price.to_f}")
+      expect(json[:data][:attributes][:name]).to eq(@item_3.name.to_s)
+      expect(json[:data][:attributes][:description]).to eq(@item_3.description.to_s)
+      expect(json[:data][:attributes][:unit_price]).to eq(@item_3.unit_price.to_f)
       expect(json[:data][:attributes][:merchant_id]).to eq(@item_3.merchant_id)
     end
 
@@ -63,9 +63,9 @@ RSpec.describe "Api::V1::Items::Search Show", type: :request do
       expect(json[:data].class).to eq(Hash)
       expect(json[:data][:type]).to eq('item')
       expect(json[:data][:attributes].class).to eq(Hash)
-      expect(json[:data][:attributes][:name]).to eq("#{@item_1.name}")
-      expect(json[:data][:attributes][:description]).to eq("#{@item_1.description}")
-      expect(json[:data][:attributes][:unit_price]).to eq("#{@item_1.unit_price.to_f}")
+      expect(json[:data][:attributes][:name]).to eq(@item_1.name.to_s)
+      expect(json[:data][:attributes][:description]).to eq(@item_1.description.to_s)
+      expect(json[:data][:attributes][:unit_price]).to eq(@item_1.unit_price.to_f)
       expect(json[:data][:attributes][:merchant_id]).to eq(@item_1.merchant_id)
 
       get api_v1_items_find_path, params: { max_price: 100 }
@@ -73,9 +73,9 @@ RSpec.describe "Api::V1::Items::Search Show", type: :request do
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(200)
 
-      expect(json[:data][:attributes][:name]).to eq("#{@item_1.name}")
-      expect(json[:data][:attributes][:description]).to eq("#{@item_1.description}")
-      expect(json[:data][:attributes][:unit_price]).to eq("#{@item_1.unit_price.to_f}")
+      expect(json[:data][:attributes][:name]).to eq(@item_1.name.to_s)
+      expect(json[:data][:attributes][:description]).to eq(@item_1.description.to_s)
+      expect(json[:data][:attributes][:unit_price]).to eq(@item_1.unit_price.to_f)
       expect(json[:data][:attributes][:merchant_id]).to eq(@item_1.merchant_id)
     end
 
@@ -88,18 +88,18 @@ RSpec.describe "Api::V1::Items::Search Show", type: :request do
       expect(json[:data].class).to eq(Hash)
       expect(json[:data][:type]).to eq('item')
       expect(json[:data][:attributes].class).to eq(Hash)
-      expect(json[:data][:attributes][:name]).to eq("#{@item_1.name}")
-      expect(json[:data][:attributes][:description]).to eq("#{@item_1.description}")
-      expect(json[:data][:attributes][:unit_price]).to eq("#{@item_1.unit_price.to_f}")
+      expect(json[:data][:attributes][:name]).to eq(@item_1.name.to_s)
+      expect(json[:data][:attributes][:description]).to eq(@item_1.description.to_s)
+      expect(json[:data][:attributes][:unit_price]).to eq(@item_1.unit_price.to_f)
       expect(json[:data][:attributes][:merchant_id]).to eq(@item_1.merchant_id)
 
       get api_v1_items_find_path, params: { min_price: 15, max_price: 25 }
 
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(200)
-      expect(json[:data][:attributes][:name]).to eq("#{@item_3.name}")
-      expect(json[:data][:attributes][:description]).to eq("#{@item_3.description}")
-      expect(json[:data][:attributes][:unit_price]).to eq("#{@item_3.unit_price.to_f}")
+      expect(json[:data][:attributes][:name]).to eq(@item_3.name.to_s)
+      expect(json[:data][:attributes][:description]).to eq(@item_3.description.to_s)
+      expect(json[:data][:attributes][:unit_price]).to eq(@item_3.unit_price.to_f)
       expect(json[:data][:attributes][:merchant_id]).to eq(@item_3.merchant_id)
     end
   end
@@ -158,7 +158,7 @@ RSpec.describe "Api::V1::Items::Search Show", type: :request do
     end
 
     it 'when i search for price with no returns' do
-      get api_v1_items_find_path, params: { min_price: 100000 }
+      get api_v1_items_find_path, params: { min_price: 100_000 }
 
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(200)

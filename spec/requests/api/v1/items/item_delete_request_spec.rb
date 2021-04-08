@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Items", type: :request do
+RSpec.describe 'Api::V1::Items', type: :request do
   before :each do
     @merchant = create(:merchant)
     @customer = create(:customer)
@@ -37,7 +37,7 @@ RSpec.describe "Api::V1::Items", type: :request do
 
   describe 'sad path' do
     it 'cant delete an item given an invalid id' do
-      expect{ delete api_v1_item_path(99999999) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { delete api_v1_item_path(99_999_999) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

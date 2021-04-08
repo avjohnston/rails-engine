@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Items Show", type: :request do
+RSpec.describe 'Api::V1::Items Show', type: :request do
   before :each do
     @merchant = create(:merchant)
-  	@item = create(:item, merchant_id: @merchant.id)
+    @item = create(:item, merchant_id: @merchant.id)
   end
 
   describe 'happy path' do
@@ -19,7 +19,7 @@ RSpec.describe "Api::V1::Items Show", type: :request do
 
   describe 'sad path' do
     it 'bad id returns a 404' do
-      expect{ get '/api/v1/items/21' }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { get '/api/v1/items/21' }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

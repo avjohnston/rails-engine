@@ -6,7 +6,7 @@ class Api::V1::Revenue::MerchantsController < ApplicationController
 
       render json: @serial
     else
-      render json: {data: [], error: 'error'}, status: 400
+      render json: { data: [], error: 'error' }, status: 400
     end
   end
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Merchants::Search", type: :request do
+RSpec.describe 'Api::V1::Merchants::Search', type: :request do
   before :each do
     @merchant_1 = create(:merchant, name: 'Andrew J')
     @merchant_2 = create(:merchant, name: 'Jandrew A')
@@ -8,7 +8,7 @@ RSpec.describe "Api::V1::Merchants::Search", type: :request do
 
   describe 'when i search for an merchant by name' do
     it 'returns the first matching merchant alphabetically - case insensitive' do
-      get api_v1_merchants_find_path, params: {name: 'An'}
+      get api_v1_merchants_find_path, params: { name: 'An' }
 
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(200)
@@ -19,7 +19,7 @@ RSpec.describe "Api::V1::Merchants::Search", type: :request do
     end
 
     it 'returns an empty hash if no results match' do
-      get api_v1_merchants_find_path, params: {name: 'vwra'}
+      get api_v1_merchants_find_path, params: { name: 'vwra' }
 
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(200)
@@ -37,11 +37,11 @@ RSpec.describe "Api::V1::Merchants::Search", type: :request do
     end
 
     it 'returns empty data when search param is present but empty' do
-      get api_v1_merchants_find_path, params: {name: 'vwra'}
+      get api_v1_merchants_find_path, params: { name: 'vwra' }
 
       json = JSON.parse(response.body, symbolize_names: true)
       expect(response).to have_http_status(200)
-      
+
       expect(json[:data]).to eq({})
     end
   end
