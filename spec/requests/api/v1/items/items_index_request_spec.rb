@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Items", type: :request do
+RSpec.describe 'Api::V1::Items', type: :request do
   before :each do
     @merchant = create(:merchant)
-  	@items =  create_list(:item, 50, merchant_id: @merchant.id)
+    @items = create_list(:item, 50, merchant_id: @merchant.id)
   end
 
   describe 'happy path' do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Merchants::MostItems", type: :request do
+RSpec.describe 'Api::V1::Merchants::MostItems', type: :request do
   before :each do
     setup_five_merchants_revenue
   end

@@ -6,7 +6,7 @@ class Api::V1::Revenue::ItemsController < ApplicationController
 
       render json: @serial, status: 200
     else
-      render json: {data: [], error: 'error'}, status: 400
+      render json: { data: [], error: 'error' }, status: 400
     end
   end
 end

@@ -1,19 +1,19 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Items::Merchant", type: :request do
+RSpec.describe 'Api::V1::Items::Merchant', type: :request do
   before :each do
     @merchant = create(:merchant)
-  	@item = create(:item, merchant_id: @merchant.id, unit_price: 750)
+    @item = create(:item, merchant_id: @merchant.id, unit_price: 750)
   end
 
   describe 'happy path' do
     it 'updates an item given all new attributes' do
       valid_attributes = {
-                            name: "new item",
-                            description: "new description",
-                            unit_price: 123.45,
-                            merchant_id: @merchant.id
-                          }
+        name: 'new item',
+        description: 'new description',
+        unit_price: 123.45,
+        merchant_id: @merchant.id
+      }
 
       patch api_v1_item_path(@item.id), params: valid_attributes
       json = JSON.parse(response.body)
@@ -27,7 +27,7 @@ RSpec.describe "Api::V1::Items::Merchant", type: :request do
     end
 
     it 'updates an item given some new attributes' do
-      valid_attributes = { name: "new item" }
+      valid_attributes = { name: 'new item' }
       patch api_v1_item_path(@item.id), params: valid_attributes
       json = JSON.parse(response.body)
       expect(response).to have_http_status(200)
@@ -43,22 +43,22 @@ RSpec.describe "Api::V1::Items::Merchant", type: :request do
   describe 'sad path' do
     it 'updating item with invalid item id returns a 404' do
       invalid_attributes = {
-                              name: "new item",
-                              description: "new description",
-                              unit_price: 123.45,
-                              merchant_id: @merchant.id
-                            }
+        name: 'new item',
+        description: 'new description',
+        unit_price: 123.45,
+        merchant_id: @merchant.id
+      }
 
-      expect{ patch "/api/v1/items/99999", params: invalid_attributes }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { patch '/api/v1/items/99999', params: invalid_attributes }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it 'updating item with invalid merchant id returns a 404' do
       invalid_attributes = {
-                              name: "new item",
-                              description: "new description",
-                              unit_price: 123.45,
-                              merchant_id: 555555555555
-                            }
+        name: 'new item',
+        description: 'new description',
+        unit_price: 123.45,
+        merchant_id: 555_555_555_555
+      }
       patch api_v1_item_path(@item.id), params: invalid_attributes
 
       expect(response).to have_http_status(404)

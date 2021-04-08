@@ -29,26 +29,26 @@ class ApplicationController < ActionController::API
   end
 
   def serializer_edge_case
-    if @item.empty?
-      @serial = { data: {} }
-    else
-      @serial = ItemSerializer.new(@item.first)
-    end
+    @serial = if @item.empty?
+                { data: {} }
+              else
+                ItemSerializer.new(@item.first)
+              end
   end
 
   def merchant_search_serial
-    if @merchant.empty?
-      @serial = { data: {} }
-    else
-      @serial = MerchantSerializer.new(@merchant.first)
-    end
+    @serial = if @merchant.empty?
+                { data: {} }
+              else
+                MerchantSerializer.new(@merchant.first)
+              end
   end
 
   def item_search_serial
-    if @items.empty?
-      @serial = { data: [] }
-    else
-      @serial = ItemSerializer.new(@items)
-    end
+    @serial = if @items.empty?
+                { data: [] }
+              else
+                ItemSerializer.new(@items)
+              end
   end
 end
